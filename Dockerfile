@@ -10,8 +10,19 @@ RUN apt-get update && apt-get install -y \
     procps \
     net-tools \
     sed \
-    3proxy \
+    gcc \
+    make \
+    libc6-dev \
+    git \
     && rm -rf /var/lib/apt/lists/*
+
+# 编译安装 3proxy
+RUN git clone https://github.com/3proxy/3proxy.git /tmp/3proxy \
+    && make -C /tmp/3proxy -f Makefile.Linux \
+    && cp /tmp/3proxy/bin/3proxy /usr/local/bin/3proxy \
+    && chmod +x /usr/local/bin/3proxy \
+    && mkdir -p /etc/3proxy \
+    && rm -rf /tmp/3proxy
 
 # 安装 shadowsocks-rust
 RUN wget -O /tmp/shadowsocks.tar.xz https://github.com/shadowsocks/shadowsocks-rust/releases/download/v1.23.5/shadowsocks-v1.23.5.x86_64-unknown-linux-gnu.tar.xz \

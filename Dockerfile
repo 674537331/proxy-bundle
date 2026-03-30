@@ -32,6 +32,7 @@ RUN wget -O /tmp/shadowsocks.tar.xz https://github.com/shadowsocks/shadowsocks-r
     && rm -f /tmp/shadowsocks.tar.xz
 
 COPY 3proxy.cfg.template /etc/3proxy/3proxy.cfg.template
+COPY ss-config.json.template /etc/ss-config.json.template
 COPY entrypoint.sh /entrypoint.sh
 
 RUN chmod +x /entrypoint.sh
